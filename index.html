@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Presentación Equipo Valorant</title>
+    <style>
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #18181b; color: #fff; margin: 0; }
+        header { background: #ff4655; padding: 30px 0; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
+        header h1 { margin: 0; font-size: 2.5em; letter-spacing: 2px; }
+        header p { margin-top: 10px; font-size: 1.2em; color: #ffe4e6; }
+        main { display: flex; flex-direction: column; align-items: center; margin-top: 40px; }
+        .carousel-container { position: relative; width: 300px; max-width: 90vw; }
+        .carousel-img {
+            width: 268px;
+            height: 360px;
+            object-fit: cover;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px #0008;
+            display: block;
+            margin: 0 auto;
+            background: #23232a;
+        }
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #ff4655;
+            border: none;
+            color: #fff;
+            font-size: 2em;
+            padding: 0 18px;
+            cursor: pointer;
+            border-radius: 50%;
+            opacity: 0.8;
+        }
+        .carousel-btn:hover { opacity: 1; }
+        .carousel-btn.prev { left: -50px; }
+        .carousel-btn.next { right: -50px; }
+        .carousel-caption { text-align: center; margin-top: 18px; font-size: 1.3em; font-weight: bold; color: #ff4655; }
+        .team-info { margin-top: 40px; background: #23232a; padding: 30px; border-radius: 18px; box-shadow: 0 2px 12px #0006; max-width: 500px; }
+        .team-info h2 { color: #ff4655; margin-bottom: 12px; }
+        .team-info ul { list-style: none; padding: 0; }
+        .team-info li { margin-bottom: 8px; font-size: 1.1em; }
+        @media (max-width: 400px) {
+            .carousel-container { width: 90vw; }
+            .carousel-img { width: 90vw; height: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Equipo Valorant: LISEM ESPORTS</h1>
+        <p>Presentación oficial del equipo y sus integrantes</p>
+    </header>
+    <main>
+        <div class="carousel-container">
+            <button class="carousel-btn prev" onclick="prevImage()">&#10094;</button>
+            <img id="carousel" class="carousel-img" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/47387e354c34d51b84066bc47af3c5755b92b9c5-616x822.png?auto=format&fit=fill&q=80&w=268" alt="INQUISIDOR - Capitán">
+            <button class="carousel-btn next" onclick="nextImage()">&#10095;</button>
+            <div class="carousel-caption" id="caption">INQUISIDOR - Capitán</div>
+        </div>
+        <div class="team-info">
+            <h2>Integrantes</h2>
+            <ul>
+                <li>INQUISIDOR (Capitán) - Estratega</li>
+                <li>LITE - Duelista</li>
+                <li>MIKE - Iniciador</li>
+                <li>SEIVI - Centinela</li>
+                <li>EDM - Duelista</li>
+            </ul>
+        </div>
+    </main>
+    <script>
+        const images = [
+            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/47387e354c34d51b84066bc47af3c5755b92b9c5-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "INQUISIDOR - Capitán" },
+            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/58a180961a14beb631877921e647c233804853c1-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "LITE - Duelista" },
+            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/4a648cdbcbbeef137050deefeaf6a1369c606666-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "MIKE - Iniciador" },
+            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/015a083717e9687de8a741cfceddb836775b5f9f-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "SEIVI - Centinela" },
+            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/0f5b668b77499c0051201389d6ac5e7343c9727f-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "EDM - Duelista" }
+        ];
+        let current = 0;
+        function showImage(idx) {
+            const img = document.getElementById('carousel');
+            const cap = document.getElementById('caption');
+            img.src = images[idx].src;
+            img.alt = images[idx].caption;
+            cap.textContent = images[idx].caption;
+        }
+        function prevImage() {
+            current = (current - 1 + images.length) % images.length;
+            showImage(current);
+        }
+        function nextImage() {
+            current = (current + 1) % images.length;
+            showImage(current);
+        }
+        showImage(current);
+    </script>
+</body>
+</html>
