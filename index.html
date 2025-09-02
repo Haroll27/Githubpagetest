@@ -2,99 +2,217 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Presentación Equipo Valorant</title>
+    <title>Cohete Explosivo a la Luna</title>
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #18181b; color: #fff; margin: 0; }
-        header { background: #ff4655; padding: 30px 0; text-align: center; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; }
-        header h1 { margin: 0; font-size: 2.5em; letter-spacing: 2px; }
-        header p { margin-top: 10px; font-size: 1.2em; color: #ffe4e6; }
-        main { display: flex; flex-direction: column; align-items: center; margin-top: 40px; }
-        .carousel-container { position: relative; width: 300px; max-width: 90vw; }
-        .carousel-img {
-            width: 268px;
-            height: 360px;
-            object-fit: cover;
-            border-radius: 18px;
-            box-shadow: 0 4px 24px #0008;
-            display: block;
-            margin: 0 auto;
-            background: #23232a;
+        body {
+            background: linear-gradient(to top, #001f3f 80%, #222 100%);
+            margin: 0;
+            overflow: hidden;
+            height: 100vh;
         }
-        .carousel-btn {
+        .luna {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: #ff4655;
-            border: none;
-            color: #fff;
-            font-size: 2em;
-            padding: 0 18px;
-            cursor: pointer;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            background: #e0e0e0;
             border-radius: 50%;
+            box-shadow: 0 0 80px 30px #fff;
+            z-index: 1;
+        }
+        .cohete {
+            position: absolute;
+            left: 50%;
+            /* bottom se controla por JS */
+            transform: translateX(-50%);
+            width: 60px;
+            height: 220px;
+            z-index: 2;
+        }
+        .nariz {
+            width: 0;
+            height: 0;
+            border-left: 30px solid transparent;
+            border-right: 30px solid transparent;
+            border-bottom: 40px solid #fff;
+            margin: 0 auto;
+            position: relative;
+            top: 0;
+        }
+        .cuerpo {
+            width: 24px;
+            height: 120px;
+            background: linear-gradient(180deg, #d7dbdd 70%, #34495e 100%);
+            margin: 0 auto;
+            border-radius: 12px 12px 10px 10px;
+            position: relative;
+            top: 0;
+            box-shadow: 0 0 16px #bfc9ca;
+            border: 2px solid #fff;
+        }
+        .ventana {
+            width: 14px;
+            height: 14px;
+            background: #5dade2;
+            border-radius: 50%;
+            position: absolute;
+            left: 5px;
+            top: 40px;
+            border: 2px solid #fff;
+            box-shadow: 0 0 8px #5dade2;
+        }
+        .panel {
+            position: absolute;
+            width: 60px;
+            height: 10px;
+            background: linear-gradient(90deg, #5dade2 60%, #fff 100%);
+            border-radius: 5px;
+            left: -18px;
+            top: 80px;
+            box-shadow: 0 0 8px #5dade2;
+        }
+        .panel.right {
+            transform: rotate(12deg);
+        }
+        .panel.left {
+            transform: rotate(-12deg);
+        }
+        .motor {
+            width: 24px;
+            height: 24px;
+            background: #34495e;
+            border-radius: 50%;
+            position: absolute;
+            left: 18px;
+            top: 120px;
+            box-shadow: 0 0 8px #34495e;
+            border: 2px solid #fff;
+        }
+        .fuego {
+            width: 24px;
+            height: 50px;
+            background: linear-gradient(180deg, #fff200 40%, orange 80%, red 100%);
+            position: absolute;
+            left: 18px;
+            top: 144px;
+            border-radius: 50% 50% 60% 60%;
+            box-shadow: 0 0 30px 10px orange;
+            animation: fuego 0.5s infinite alternate;
+            opacity: 0.9;
+        }
+        @keyframes fuego {
+            to {
+                height: 60px;
+                box-shadow: 0 0 40px 20px orange;
+                opacity: 1;
+            }
+        }
+        .explosion {
+            position: absolute;
+            left: 50%;
+            /* bottom se controla por JS */
+            transform: translateX(-50%);
+            width: 160px;
+            height: 160px;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 3;
+        }
+        .explosion.active {
+            opacity: 1;
+            animation: explotar 1s forwards;
+        }
+        @keyframes explotar {
+            0% { opacity: 0; transform: translateX(-50%) scale(0.5);}
+            50% { opacity: 1; transform: translateX(-50%) scale(1.2);}
+            100% { opacity: 1; transform: translateX(-50%) scale(1);}
+        }
+        .explosion-circulo {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fff200 60%, #ff6f00 100%);
             opacity: 0.8;
         }
-        .carousel-btn:hover { opacity: 1; }
-        .carousel-btn.prev { left: -50px; }
-        .carousel-btn.next { right: -50px; }
-        .carousel-caption { text-align: center; margin-top: 18px; font-size: 1.3em; font-weight: bold; color: #ff4655; }
-        .team-info { margin-top: 40px; background: #23232a; padding: 30px; border-radius: 18px; box-shadow: 0 2px 12px #0006; max-width: 500px; }
-        .team-info h2 { color: #ff4655; margin-bottom: 12px; }
-        .team-info ul { list-style: none; padding: 0; }
-        .team-info li { margin-bottom: 8px; font-size: 1.1em; }
-        @media (max-width: 400px) {
-            .carousel-container { width: 90vw; }
-            .carousel-img { width: 90vw; height: 300px; }
+        .explosion-circulo.c1 { width: 100px; height: 100px; left: 30px; top: 30px;}
+        .explosion-circulo.c2 { width: 60px; height: 60px; left: 10px; top: 90px;}
+        .explosion-circulo.c3 { width: 50px; height: 50px; left: 110px; top: 80px;}
+        .explosion-circulo.c4 { width: 40px; height: 40px; left: 70px; top: 120px;}
+        .mensaje {
+            position: absolute;
+            top: 120px;
+            left: 50%;
+            transform: translateX(-50%) scale(0.5);
+            color: #fff200;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 8px #ff6f00, 0 0 20px #fff;
+            opacity: 0;
+            z-index: 4;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .mensaje.active {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+            animation: aparecer 1s forwards;
+        }
+        @keyframes aparecer {
+            to {
+                opacity: 1;
+                transform: translateX(-50%) scale(1);
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Equipo Valorant: LISEM ESPORTS</h1>
-        <p>Presentación oficial del equipo y sus integrantes</p>
-    </header>
-    <main>
-        <div class="carousel-container">
-            <button class="carousel-btn prev" onclick="prevImage()">&#10094;</button>
-            <img id="carousel" class="carousel-img" src="https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/47387e354c34d51b84066bc47af3c5755b92b9c5-616x822.png?auto=format&fit=fill&q=80&w=268" alt="INQUISIDOR - Capitán">
-            <button class="carousel-btn next" onclick="nextImage()">&#10095;</button>
-            <div class="carousel-caption" id="caption">INQUISIDOR - Capitán</div>
+    <div class="luna"></div>
+    <div class="cohete" id="cohete">
+        <div class="nariz"></div>
+        <div class="cuerpo">
+            <div class="ventana"></div>
         </div>
-        <div class="team-info">
-            <h2>Integrantes</h2>
-            <ul>
-                <li>INQUISIDOR (Capitán) - Estratega</li>
-                <li>LITE - Duelista</li>
-                <li>MIKE - Iniciador</li>
-                <li>SEIVI - Centinela</li>
-                <li>EDM - Duelista</li>
-            </ul>
-        </div>
-    </main>
+        <div class="panel left"></div>
+        <div class="panel right"></div>
+        <div class="motor"></div>
+        <div class="fuego"></div>
+    </div>
+    <div class="explosion" id="explosion">
+        <div class="explosion-circulo c1"></div>
+        <div class="explosion-circulo c2"></div>
+        <div class="explosion-circulo c3"></div>
+        <div class="explosion-circulo c4"></div>
+    </div>
+    <div class="mensaje" id="mensaje">Te odio Geral</div>
     <script>
-        const images = [
-            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/47387e354c34d51b84066bc47af3c5755b92b9c5-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "INQUISIDOR - Capitán" },
-            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/58a180961a14beb631877921e647c233804853c1-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "LITE - Duelista" },
-            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/4a648cdbcbbeef137050deefeaf6a1369c606666-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "MIKE - Iniciador" },
-            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/015a083717e9687de8a741cfceddb836775b5f9f-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "SEIVI - Centinela" },
-            { src: "https://cmsassets.rgpub.io/sanity/images/dsfx7636/news/0f5b668b77499c0051201389d6ac5e7343c9727f-616x822.png?auto=format&fit=fill&q=80&w=268", caption: "EDM - Duelista" }
-        ];
-        let current = 0;
-        function showImage(idx) {
-            const img = document.getElementById('carousel');
-            const cap = document.getElementById('caption');
-            img.src = images[idx].src;
-            img.alt = images[idx].caption;
-            cap.textContent = images[idx].caption;
+        // Animación del cohete con tiempo de llegada y explosión
+        const cohete = document.getElementById('cohete');
+        const explosion = document.getElementById('explosion');
+        const mensaje = document.getElementById('mensaje');
+        let bottom = 0;
+        let tocado = false;
+        const velocidad = 2; // px por frame
+        // La luna está en top: 60px y mide 120px, así que el borde inferior está en 180px
+        // El cohete mide 220px de alto, así que cuando bottom >= 180, toca la luna
+        function animarCohete() {
+            if (tocado) return;
+            bottom += velocidad;
+            cohete.style.bottom = bottom + 'px';
+            if (bottom + 60 >= 180) { // 60 es la mitad del cohete para centrar la explosión
+                tocado = true;
+                setTimeout(() => {
+                    cohete.style.display = 'none';
+                    explosion.style.bottom = (bottom + 30) + 'px';
+                    explosion.classList.add('active');
+                    setTimeout(() => {
+                        mensaje.classList.add('active');
+                    }, 1000);
+                }, 400);
+                return;
+            }
+            requestAnimationFrame(animarCohete);
         }
-        function prevImage() {
-            current = (current - 1 + images.length) % images.length;
-            showImage(current);
-        }
-        function nextImage() {
-            current = (current + 1) % images.length;
-            showImage(current);
-        }
-        showImage(current);
+        animarCohete();
     </script>
 </body>
 </html>
